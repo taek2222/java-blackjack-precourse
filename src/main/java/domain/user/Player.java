@@ -27,13 +27,12 @@ public class Player {
         cards.add(card);
     }
 
-    public double calculateFinalMoney(double multiple) {
+    public double calculateMultipleMoney(double multiple) {
         return bettingMoney * multiple;
     }
 
     public boolean isBlackjack() {
         int totalCardScore = calculateTotalCardScore();
-
         return totalCardScore == 21;
     }
 
@@ -41,7 +40,7 @@ public class Player {
         return calculateTotalCardScore() < 21;
     }
 
-    public boolean isOverBlackjack() {
+    public boolean isBust() {
         return calculateTotalCardScore() > 21;
     }
 

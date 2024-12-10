@@ -20,7 +20,7 @@ public class Dealer {
         cards.add(card);
     }
 
-    public boolean isOverBlackjack() {
+    public boolean isBust() {
         return calculateTotalCardScore() > 21;
     }
 

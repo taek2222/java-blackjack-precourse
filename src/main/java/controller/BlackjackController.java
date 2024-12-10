@@ -45,14 +45,16 @@ public class BlackjackController {
     private void processFinalResult(Dealer dealer, List<Player> players, FinalResult finalResult) {
         int dealerScore = dealer.calculateTotalCardScore();
         for (Player player : players) {
-
-            if (player.compareScore(dealerScore) < 0 || player.isOverBlackjack()) {
+            if (player.compareScore(dealerScore) < 0 || player.isBust()) {
                 finalResult.decreaseAmountByDefeatPlayer(player);
+                continue;
             }
 
             if (player.compareScore(dealerScore) > 0) {
                 finalResult.increaseAmountByWinnerPlayer(player);
+                continue;
             }
+            finalResult.addPlayer(player);
         }
     }
 
@@ -64,7 +66,7 @@ public class BlackjackController {
     }
 
     private void checkDealerBust(Dealer dealer, List<Player> players, FinalResult finalResult) {
-        if (dealer.isOverBlackjack()) {
+        if (dealer.isBust()) {
             for (Player player : players) {
                 finalResult.increaseAmountByWinnerPlayer(player);
                 players.remove(player);
