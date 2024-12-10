@@ -24,12 +24,24 @@ public class BlackjackController {
     public void run() {
         List<Player> players = generatePlayers();
 
-        Dealer dealer = generateDealer();
-
-
+        Dealer dealer = initDealerCards();
+        initPlayerCards(players);
     }
 
-    private Dealer generateDealer() {
+    private void initPlayerCards(List<Player> players) {
+        for (Player player : players) {
+            addPlayerCard(player);
+        }
+    }
+
+    private void addPlayerCard(Player player) {
+        for (int loop = 0; loop < 2; loop++) {
+            Card card = generateRandomCard();
+            player.addCard(card);
+        }
+    }
+
+    private Dealer initDealerCards() {
         Dealer dealer = new Dealer();
         addDealerCard(dealer);
 
