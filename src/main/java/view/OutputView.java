@@ -8,6 +8,11 @@ import java.util.List;
 
 public class OutputView {
 
+    public void printInitCard(List<String> playerNames) {
+        System.out.printf("딜러와 %s에게 2장을 나누었습니다.", String.join(", ", playerNames));
+        System.out.println();
+    }
+
     public void printStartDealerCard(PlayerInfoResponse response) {
         System.out.println();
         System.out.printf("%s: ", response.getName());
