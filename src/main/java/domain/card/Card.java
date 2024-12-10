@@ -1,5 +1,6 @@
 package domain.card;
 
+import domain.dto.CardResponse;
 import java.util.Objects;
 
 /**
@@ -15,7 +16,12 @@ public class Card {
         this.type = type;
     }
 
-    // TODO Card 관련 추가 기능 구현
+    public CardResponse createResponse() {
+        return new CardResponse(
+                symbol.getScore(),
+                type.getType()
+        );
+    }
 
     @Override
     public boolean equals(Object o) {

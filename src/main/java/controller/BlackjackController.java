@@ -2,6 +2,7 @@ package controller;
 
 import domain.card.Card;
 import domain.card.CardFactory;
+import domain.dto.PlayerInfoResponse;
 import domain.user.Dealer;
 import domain.user.Player;
 import java.util.ArrayList;
@@ -26,6 +27,15 @@ public class BlackjackController {
 
         Dealer dealer = initDealerCards();
         initPlayerCards(players);
+
+        PlayerInfoResponse response = dealer.createResponse();
+        outputView.printStartDealerCard(response);
+
+        for (Player player : players) {
+            PlayerInfoResponse response1 = player.createResponse();
+            outputView.printStartPlayerCard(response1);
+        }
+
     }
 
     private void initPlayerCards(List<Player> players) {
