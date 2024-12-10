@@ -1,7 +1,9 @@
 package domain;
 
+import domain.dto.FinalPlayerResponse;
 import domain.user.Dealer;
 import domain.user.Player;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,6 +23,33 @@ public class FinalResult {
         checkInitBlackjack(dealer, players);
     }
 
+    public List<FinalPlayerResponse> createResponse() {
+        List<FinalPlayerResponse> responses = new ArrayList<>();
+
+        responses.add(new FinalPlayerResponse("딜러", dealer));
+
+        for (Map.Entry<Player, Double> playerDoubleEntry : players.entrySet()) {
+            FinalPlayerResponse response = new FinalPlayerResponse(
+                    playerDoubleEntry.getKey().getName(),
+                    playerDoubleEntry.getValue().intValue()
+            );
+
+            responses.add(response);
+        }
+
+        return responses;
+    }
+
+    public void increaseAmountByWinnerPlayer(Player player) {
+        double money = player.calculateFinalMoney(1.0);
+        this.players.put(player, money);
+    }
+
+    public void decreaseAmountByDefeatPlayer(Player player) {
+        double money = -player.calculateFinalMoney(1.0);
+        this.players.put(player, money);
+    }
+
     private void checkInitBlackjack(Dealer dealer, List<Player> players) {
         for (Player player : players) {
             if (player.isBlackjack()) {
@@ -33,15 +62,5 @@ public class FinalResult {
                 players.remove(player);
             }
         }
-    }
-
-    public void increaseAmountByWinnerPlayer(Player player) {
-        double money = player.calculateFinalMoney(1.0);
-        this.players.put(player, money);
-    }
-
-    public void decreaseAmountByDefeatPlayer(Player player) {
-        double money = -player.calculateFinalMoney(1.0);
-        this.players.put(player, money);
     }
 }

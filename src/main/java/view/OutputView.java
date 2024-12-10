@@ -1,12 +1,24 @@
 package view;
 
 import domain.dto.CardResponse;
+import domain.dto.FinalPlayerResponse;
 import domain.dto.PlayerInfoResponse;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class OutputView {
+
+    public void printFinalResult(List<FinalPlayerResponse> responses) {
+        System.out.println();
+        System.out.println();
+        System.out.println("## 최종 수익");
+
+        for (FinalPlayerResponse response : responses) {
+            System.out.printf("%s: %d", response.getName(), response.getAmount());
+            System.out.println();
+        }
+    }
 
     public void printFinalDealerCard(PlayerInfoResponse playerInfoResponse) {
         String formatCards = formatCards(playerInfoResponse.getCardResponses());

@@ -65,6 +65,8 @@ public class BlackjackController {
                 finalResult.increaseAmountByWinnerPlayer(player);
             }
         }
+
+        outputView.printFinalResult(finalResult.createResponse());
     }
 
     private void processAddPlayersCard(List<Player> players) {
