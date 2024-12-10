@@ -29,9 +29,19 @@ public class FinalResult {
                 }
 
                 // 승리
-                this.players.put(player, player.calculateFinalMoney(1.5));
+                this.players.put(player, player.calculateFinalMoney(0.5));
                 players.remove(player);
             }
         }
+    }
+
+    public void increaseAmountByWinnerPlayer(Player player) {
+        double money = player.calculateFinalMoney(1.0);
+        this.players.put(player, money);
+    }
+
+    public void decreaseAmountByDefeatPlayer(Player player) {
+        double money = -player.calculateFinalMoney(1.0);
+        this.players.put(player, money);
     }
 }

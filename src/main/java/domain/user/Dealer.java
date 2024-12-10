@@ -20,6 +20,10 @@ public class Dealer {
         cards.add(card);
     }
 
+    public boolean isOverBlackjack() {
+        return calculateTotalCardScore() > 21;
+    }
+
     public boolean isBlackjack() {
         return calculateTotalCardScore() == 21;
     }

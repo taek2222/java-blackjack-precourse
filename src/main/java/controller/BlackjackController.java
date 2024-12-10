@@ -41,6 +41,13 @@ public class BlackjackController {
             addDealerCard(dealer);
             outputView.printDealerAddCard();
         }
+
+        if (dealer.isOverBlackjack()) {
+            for (Player player : players) {
+                finalResult.increaseAmountByWinnerPlayer(player);
+                players.remove(player);
+            }
+        }
     }
 
     private void processAddPlayersCard(List<Player> players) {
