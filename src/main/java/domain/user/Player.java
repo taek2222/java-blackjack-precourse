@@ -15,6 +15,7 @@ public class Player {
 
     public Player(String name, double bettingMoney) {
         validatorName(name);
+        validatorMoney(bettingMoney);
         this.name = name;
         this.bettingMoney = bettingMoney;
     }
@@ -25,6 +26,12 @@ public class Player {
 
     private void validatorName(String name) {
         if (name.trim().isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    private void validatorMoney(double bettingMoney) {
+        if (bettingMoney < 5_000 || 10_000_000 < bettingMoney) {
             throw new IllegalArgumentException();
         }
     }
