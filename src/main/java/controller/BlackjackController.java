@@ -1,9 +1,13 @@
 package controller;
 
+import domain.card.Card;
+import domain.card.CardFactory;
+import domain.user.Dealer;
 import domain.user.Player;
 import java.util.ArrayList;
 import java.util.List;
 import util.PlayerParser;
+import util.RandomNumber;
 import view.InputView;
 import view.OutputView;
 
@@ -19,6 +23,30 @@ public class BlackjackController {
 
     public void run() {
         List<Player> players = generatePlayers();
+
+        Dealer dealer = generateDealer();
+
+
+    }
+
+    private Dealer generateDealer() {
+        Dealer dealer = new Dealer();
+        addDealerCard(dealer);
+
+        return dealer;
+    }
+
+    private void addDealerCard(Dealer dealer) {
+        for (int loop = 0; loop < 2; loop++) {
+            Card card = generateRandomCard();
+            dealer.addCard(card);
+        }
+    }
+
+    private Card generateRandomCard() {
+        List<Card> cards = CardFactory.create();
+        int index = RandomNumber.generateRandomNumber(0, cards.size());
+        return cards.get(index);
     }
 
     private List<Player> generatePlayers() {
