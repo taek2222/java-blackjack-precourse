@@ -41,6 +41,10 @@ public class Player {
         return calculateTotalCardScore() < 21;
     }
 
+    public boolean isOverBlackjack() {
+        return calculateTotalCardScore() > 21;
+    }
+
     public int compareScore(int otherCardScore) {
         int cardScore = this.calculateTotalCardScore();
         return Integer.compare(cardScore, otherCardScore);

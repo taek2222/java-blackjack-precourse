@@ -24,40 +24,29 @@ public class BlackjackController {
     }
 
     public void run() {
-        List<String> playerNames = getPlayerNames();
-        List<Player> players = generatePlayers(playerNames);
-
-        outputView.printInitCard(playerNames);
         Dealer dealer = initDealerCards();
-        initPlayerCards(players);
+        List<Player> players = initPlayerCards();
+        displayInitCards(dealer, players);
+
         FinalResult finalResult = new FinalResult(dealer, players);
-
-        displayInitDealerCard(dealer);
-        displayInitPlayersCard(players);
-
         processAddPlayersCard(players);
+        checkAddDealerCard(dealer);
+        checkDealerBust(dealer, players, finalResult);
 
-        if (dealer.isSevenTeenLessThanValue()) {
-            addDealerCard(dealer);
-            outputView.printDealerAddCard();
-        }
+        processFinalResult(dealer, players, finalResult);
+        displayFinalResult(dealer, players, finalResult);
+    }
 
-        if (dealer.isOverBlackjack()) {
-            for (Player player : players) {
-                finalResult.increaseAmountByWinnerPlayer(player);
-                players.remove(player);
-            }
-        }
+    private void displayFinalResult(Dealer dealer, List<Player> players, FinalResult finalResult) {
+        outputView.printFinalResult(finalResult.createResponse());
+        displayFinalCards(dealer, players);
+    }
 
-        outputView.printFinalDealerCard(dealer.createResponse());
-
-        for (Player player : players) {
-            outputView.printFinalPlayerCard(player.createResponse());
-        }
-
+    private void processFinalResult(Dealer dealer, List<Player> players, FinalResult finalResult) {
         int dealerScore = dealer.calculateTotalCardScore();
         for (Player player : players) {
-            if (player.compareScore(dealerScore) < 0) {
+
+            if (player.compareScore(dealerScore) < 0 || player.isOverBlackjack()) {
                 finalResult.decreaseAmountByDefeatPlayer(player);
             }
 
@@ -65,8 +54,42 @@ public class BlackjackController {
                 finalResult.increaseAmountByWinnerPlayer(player);
             }
         }
+    }
 
-        outputView.printFinalResult(finalResult.createResponse());
+    private void displayFinalCards(Dealer dealer, List<Player> players) {
+        outputView.printFinalDealerCard(dealer.createResponse());
+        for (Player player : players) {
+            outputView.printFinalPlayerCard(player.createResponse());
+        }
+    }
+
+    private void checkDealerBust(Dealer dealer, List<Player> players, FinalResult finalResult) {
+        if (dealer.isOverBlackjack()) {
+            for (Player player : players) {
+                finalResult.increaseAmountByWinnerPlayer(player);
+                players.remove(player);
+            }
+        }
+    }
+
+    private void displayInitCards(Dealer dealer, List<Player> players) {
+        displayInitDealerCard(dealer);
+        displayInitPlayersCard(players);
+    }
+
+    private List<Player> initPlayerCards() {
+        List<String> playerNames = getPlayerNames();
+        List<Player> players = generatePlayers(playerNames);
+        outputView.printInitCard(playerNames);
+        initPlayerCards(players);
+        return players;
+    }
+
+    private void checkAddDealerCard(Dealer dealer) {
+        if (dealer.isSevenTeenLessThanValue()) {
+            addDealerCard(dealer);
+            outputView.printDealerAddCard();
+        }
     }
 
     private void processAddPlayersCard(List<Player> players) {

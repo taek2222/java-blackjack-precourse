@@ -24,6 +24,7 @@ public class OutputView {
         String formatCards = formatCards(playerInfoResponse.getCardResponses());
 
         System.out.println();
+        System.out.println();
         System.out.printf("%s 카드: %s - 결과: %d",
                 playerInfoResponse.getName(),
                 formatCards,
