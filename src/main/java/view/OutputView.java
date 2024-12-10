@@ -9,8 +9,8 @@ import java.util.List;
 public class OutputView {
 
     public void printInitCard(List<String> playerNames) {
-        System.out.printf("딜러와 %s에게 2장을 나누었습니다.", String.join(", ", playerNames));
         System.out.println();
+        System.out.printf("딜러와 %s에게 2장을 나누었습니다.", String.join(", ", playerNames));
     }
 
     public void printStartDealerCard(PlayerInfoResponse response) {
@@ -22,6 +22,7 @@ public class OutputView {
     }
 
     public void printStartPlayerCard(PlayerInfoResponse response) {
+        System.out.println();
         System.out.printf("%s카드: ", response.getName());
         printCards(response.getCardResponses());
     }
@@ -34,6 +35,6 @@ public class OutputView {
             cardInfos.add(cardInfo);
         }
 
-        System.out.println(String.join(", ", cardInfos));
+        System.out.print(String.join(", ", cardInfos));
     }
 }

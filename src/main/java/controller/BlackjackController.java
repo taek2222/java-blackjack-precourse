@@ -30,11 +30,29 @@ public class BlackjackController {
         outputView.printInitCard(playerNames);
         Dealer dealer = initDealerCards();
         initPlayerCards(players);
+        FinalResult finalResult = new FinalResult(dealer, players);
 
         displayInitDealerCard(dealer);
         displayInitPlayersCard(players);
 
-        FinalResult finalResult = new FinalResult(dealer, players);
+        processAddPlayersCard(players);
+    }
+
+    private void processAddPlayersCard(List<Player> players) {
+        for (Player player : players) {
+            if (player.isTwentyOneLessThanValue()) {
+                processAddCard(player);
+            }
+        }
+    }
+
+    private void processAddCard(Player player) {
+        if (inputView.readAddCardChoice(player.getName())) {
+            addPlayerCard(player);
+            outputView.printStartPlayerCard(player.createResponse());
+            return;
+        }
+        outputView.printStartPlayerCard(player.createResponse());
     }
 
     private void displayInitPlayersCard(List<Player> players) {
@@ -51,15 +69,19 @@ public class BlackjackController {
 
     private void initPlayerCards(List<Player> players) {
         for (Player player : players) {
+            addPlayerCards(player);
+        }
+    }
+
+    private void addPlayerCards(Player player) {
+        for (int loop = 0; loop < 2; loop++) {
             addPlayerCard(player);
         }
     }
 
     private void addPlayerCard(Player player) {
-        for (int loop = 0; loop < 2; loop++) {
-            Card card = generateRandomCard();
-            player.addCard(card);
-        }
+        Card card = generateRandomCard();
+        player.addCard(card);
     }
 
     private Dealer initDealerCards() {

@@ -32,11 +32,13 @@ public class Player {
     }
 
     public boolean isBlackjack() {
-        int totalCardScore = cards.stream()
-                .mapToInt(Card::getCardsScore)
-                .sum();
+        int totalCardScore = calculateTotalCardScore();
 
         return totalCardScore == 21;
+    }
+
+    public boolean isTwentyOneLessThanValue() {
+        return calculateTotalCardScore() < 21;
     }
 
     public PlayerInfoResponse createResponse() {
@@ -52,6 +54,12 @@ public class Player {
 
     public String getName() {
         return name;
+    }
+
+    private int calculateTotalCardScore() {
+        return cards.stream()
+                .mapToInt(Card::getCardsScore)
+                .sum();
     }
 
     private void validatorName(String name) {
