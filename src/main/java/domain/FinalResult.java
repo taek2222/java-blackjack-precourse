@@ -50,6 +50,10 @@ public class FinalResult {
         this.players.put(player, money);
     }
 
+    public void addPlayer(Player player) {
+        this.players.put(player, 0.0);
+    }
+
     private void checkInitBlackjack(Dealer dealer, List<Player> players) {
         for (Player player : players) {
             if (player.isBlackjack()) {
