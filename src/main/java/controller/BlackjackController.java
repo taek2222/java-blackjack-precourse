@@ -54,6 +54,17 @@ public class BlackjackController {
         for (Player player : players) {
             outputView.printFinalPlayerCard(player.createResponse());
         }
+
+        int dealerScore = dealer.calculateTotalCardScore();
+        for (Player player : players) {
+            if (player.compareScore(dealerScore) < 0) {
+                finalResult.decreaseAmountByDefeatPlayer(player);
+            }
+
+            if (player.compareScore(dealerScore) > 0) {
+                finalResult.increaseAmountByWinnerPlayer(player);
+            }
+        }
     }
 
     private void processAddPlayersCard(List<Player> players) {

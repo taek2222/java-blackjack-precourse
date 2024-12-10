@@ -44,7 +44,7 @@ public class Dealer {
         );
     }
 
-    private int calculateTotalCardScore() {
+    public int calculateTotalCardScore() {
         return cards.stream()
                 .mapToInt(Card::getCardsScore)
                 .sum();

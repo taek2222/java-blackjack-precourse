@@ -41,6 +41,11 @@ public class Player {
         return calculateTotalCardScore() < 21;
     }
 
+    public int compareScore(int otherCardScore) {
+        int cardScore = this.calculateTotalCardScore();
+        return Integer.compare(cardScore, otherCardScore);
+    }
+
     public PlayerInfoResponse createResponse() {
         List<CardResponse> cardResponses = cards.stream()
                 .map(Card::createResponse)
