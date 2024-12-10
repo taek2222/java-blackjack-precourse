@@ -14,6 +14,7 @@ public class Player {
     private final List<Card> cards = new ArrayList<>();
 
     public Player(String name, double bettingMoney) {
+        validatorName(name);
         this.name = name;
         this.bettingMoney = bettingMoney;
     }
@@ -22,6 +23,9 @@ public class Player {
         cards.add(card);
     }
 
-    // TODO 추가 기능 구현
-
+    private void validatorName(String name) {
+        if (name.trim().isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+    }
 }
