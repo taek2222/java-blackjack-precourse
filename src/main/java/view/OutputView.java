@@ -8,31 +8,52 @@ import java.util.List;
 
 public class OutputView {
 
+    public void printFinalDealerCard(PlayerInfoResponse playerInfoResponse) {
+        String formatCards = formatCards(playerInfoResponse.getCardResponses());
+
+        System.out.println();
+        System.out.printf("%s 카드: %s - 결과: %d",
+                playerInfoResponse.getName(),
+                formatCards,
+                playerInfoResponse.getTotalScore()
+        );
+    }
+
+    public void printFinalPlayerCard(PlayerInfoResponse playerInfoResponse) {
+        System.out.println();
+        String formatCards = formatCards(playerInfoResponse.getCardResponses());
+        System.out.printf("%s카드: %s - 결과 %d",
+                playerInfoResponse.getName(),
+                formatCards,
+                playerInfoResponse.getTotalScore()
+        );
+    }
+
     public void printInitCard(List<String> playerNames) {
         System.out.println();
         System.out.printf("딜러와 %s에게 2장을 나누었습니다.", String.join(", ", playerNames));
     }
 
     public void printStartDealerCard(PlayerInfoResponse response) {
-        System.out.println();
-        System.out.printf("%s: ", response.getName());
-
         CardResponse cardResponse = response.getCardResponses().get(0); // 딜러 카드는 한 장 공개
-        printCards(Collections.singletonList(cardResponse));
+        String formatCards = formatCards(Collections.singletonList(cardResponse));
+
+        System.out.println();
+        System.out.printf("%s: %s", response.getName(), formatCards);
     }
 
     public void printStartPlayerCard(PlayerInfoResponse response) {
         System.out.println();
-        System.out.printf("%s카드: ", response.getName());
-        printCards(response.getCardResponses());
+        System.out.printf("%s카드: %s", response.getName(), formatCards(response.getCardResponses()));
     }
 
     public void printDealerAddCard() {
         System.out.println();
+        System.out.println();
         System.out.println("딜러는 16이하라 한 장의 카드를 더 받았습니다.");
     }
 
-    private void printCards(List<CardResponse> responses) {
+    private String formatCards(List<CardResponse> responses) {
         List<String> cardInfos = new ArrayList<>();
 
         for (CardResponse response : responses) {
@@ -40,6 +61,6 @@ public class OutputView {
             cardInfos.add(cardInfo);
         }
 
-        System.out.print(String.join(", ", cardInfos));
+        return String.join(", ", cardInfos);
     }
 }

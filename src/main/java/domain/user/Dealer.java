@@ -39,7 +39,8 @@ public class Dealer {
 
         return new PlayerInfoResponse(
                 "딜러",
-                cardResponses
+                cardResponses,
+                calculateTotalCardScore()
         );
     }
 

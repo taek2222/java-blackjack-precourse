@@ -48,7 +48,8 @@ public class Player {
 
         return new PlayerInfoResponse(
                 name,
-                cardResponses
+                cardResponses,
+                calculateTotalCardScore()
         );
     }
 

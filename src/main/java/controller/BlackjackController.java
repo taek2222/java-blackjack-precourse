@@ -48,6 +48,12 @@ public class BlackjackController {
                 players.remove(player);
             }
         }
+
+        outputView.printFinalDealerCard(dealer.createResponse());
+
+        for (Player player : players) {
+            outputView.printFinalPlayerCard(player.createResponse());
+        }
     }
 
     private void processAddPlayersCard(List<Player> players) {

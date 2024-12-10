@@ -7,10 +7,12 @@ public class PlayerInfoResponse {
 
     private final String name;
     private final List<CardResponse> cardResponses;
+    private final int totalScore;
 
-    public PlayerInfoResponse(String name, List<CardResponse> cardResponses) {
+    public PlayerInfoResponse(String name, List<CardResponse> cardResponses, int totalScore) {
         this.name = name;
         this.cardResponses = cardResponses;
+        this.totalScore = totalScore;
     }
 
     public String getName() {
@@ -19,5 +21,9 @@ public class PlayerInfoResponse {
 
     public List<CardResponse> getCardResponses() {
         return Collections.unmodifiableList(cardResponses);
+    }
+
+    public int getTotalScore() {
+        return totalScore;
     }
 }
