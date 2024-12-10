@@ -36,6 +36,11 @@ public class BlackjackController {
         displayInitPlayersCard(players);
 
         processAddPlayersCard(players);
+
+        if (dealer.isSevenTeenLessThanValue()) {
+            addDealerCard(dealer);
+            outputView.printDealerAddCard();
+        }
     }
 
     private void processAddPlayersCard(List<Player> players) {
@@ -86,16 +91,20 @@ public class BlackjackController {
 
     private Dealer initDealerCards() {
         Dealer dealer = new Dealer();
-        addDealerCard(dealer);
+        addDealerCards(dealer);
 
         return dealer;
     }
 
-    private void addDealerCard(Dealer dealer) {
+    private void addDealerCards(Dealer dealer) {
         for (int loop = 0; loop < 2; loop++) {
-            Card card = generateRandomCard();
-            dealer.addCard(card);
+            addDealerCard(dealer);
         }
+    }
+
+    private void addDealerCard(Dealer dealer) {
+        Card card = generateRandomCard();
+        dealer.addCard(card);
     }
 
     private Card generateRandomCard() {

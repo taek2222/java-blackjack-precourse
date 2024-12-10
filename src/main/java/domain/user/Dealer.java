@@ -21,11 +21,11 @@ public class Dealer {
     }
 
     public boolean isBlackjack() {
-        int totalCardScore = cards.stream()
-                .mapToInt(Card::getCardsScore)
-                .sum();
+        return calculateTotalCardScore() == 21;
+    }
 
-        return totalCardScore == 21;
+    public boolean isSevenTeenLessThanValue() {
+        return calculateTotalCardScore() < 17;
     }
 
     public PlayerInfoResponse createResponse() {
@@ -37,5 +37,11 @@ public class Dealer {
                 "딜러",
                 cardResponses
         );
+    }
+
+    private int calculateTotalCardScore() {
+        return cards.stream()
+                .mapToInt(Card::getCardsScore)
+                .sum();
     }
 }
