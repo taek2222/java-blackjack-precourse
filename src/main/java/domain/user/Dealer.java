@@ -20,6 +20,14 @@ public class Dealer {
         cards.add(card);
     }
 
+    public boolean isBlackjack() {
+        int totalCardScore = cards.stream()
+                .mapToInt(Card::getCardsScore)
+                .sum();
+
+        return totalCardScore == 21;
+    }
+
     public PlayerInfoResponse createResponse() {
         List<CardResponse> cardResponses = cards.stream()
                 .map(Card::createResponse)

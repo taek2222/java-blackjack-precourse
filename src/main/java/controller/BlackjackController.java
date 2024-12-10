@@ -1,5 +1,6 @@
 package controller;
 
+import domain.FinalResult;
 import domain.card.Card;
 import domain.card.CardFactory;
 import domain.dto.PlayerInfoResponse;
@@ -23,19 +24,29 @@ public class BlackjackController {
     }
 
     public void run() {
-        List<Player> players = generatePlayers();
+        List<String> playerNames = getPlayerNames();
+        List<Player> players = generatePlayers(playerNames);
 
+        outputView.printInitCard(playerNames);
         Dealer dealer = initDealerCards();
         initPlayerCards(players);
 
-        PlayerInfoResponse response = dealer.createResponse();
-        outputView.printStartDealerCard(response);
+        displayInitDealerCard(dealer);
+        displayInitPlayersCard(players);
 
+        FinalResult finalResult = new FinalResult(dealer, players);
+    }
+
+    private void displayInitPlayersCard(List<Player> players) {
         for (Player player : players) {
             PlayerInfoResponse response1 = player.createResponse();
             outputView.printStartPlayerCard(response1);
         }
+    }
 
+    private void displayInitDealerCard(Dealer dealer) {
+        PlayerInfoResponse response = dealer.createResponse();
+        outputView.printStartDealerCard(response);
     }
 
     private void initPlayerCards(List<Player> players) {
@@ -71,8 +82,7 @@ public class BlackjackController {
         return cards.get(index);
     }
 
-    private List<Player> generatePlayers() {
-        List<String> playerNames = getPlayerNames();
+    private List<Player> generatePlayers(List<String> playerNames) {
         List<Player> players1 = new ArrayList<>();
         for (String name : playerNames) {
             int money = inputView.readBettingMoney(name);

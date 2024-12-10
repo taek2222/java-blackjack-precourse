@@ -23,6 +23,10 @@ public class Card {
         );
     }
 
+    public int getCardsScore() {
+        return symbol.getScore();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -27,6 +27,18 @@ public class Player {
         cards.add(card);
     }
 
+    public double calculateFinalMoney(double multiple) {
+        return bettingMoney * multiple;
+    }
+
+    public boolean isBlackjack() {
+        int totalCardScore = cards.stream()
+                .mapToInt(Card::getCardsScore)
+                .sum();
+
+        return totalCardScore == 21;
+    }
+
     public PlayerInfoResponse createResponse() {
         List<CardResponse> cardResponses = cards.stream()
                 .map(Card::createResponse)
@@ -36,6 +48,10 @@ public class Player {
                 name,
                 cardResponses
         );
+    }
+
+    public String getName() {
+        return name;
     }
 
     private void validatorName(String name) {
