@@ -18,13 +18,22 @@ public class BlackjackController {
     }
 
     public void run() {
-        String input = inputView.readGamePlayers();
-        List<String> players = PlayerParser.parserInputPlayers(input);
+        List<Player> players = generatePlayers();
+    }
 
+    private List<Player> generatePlayers() {
+        List<String> playerNames = getPlayerNames();
         List<Player> players1 = new ArrayList<>();
-        for (String player : players) {
-            int money = inputView.readBettingMoney(player);
-            players1.add(new Player(player, money));
+        for (String name : playerNames) {
+            int money = inputView.readBettingMoney(name);
+            players1.add(new Player(name, money));
         }
+
+        return players1;
+    }
+
+    private List<String> getPlayerNames() {
+        String input = inputView.readGamePlayers();
+        return PlayerParser.parserInputPlayers(input);
     }
 }
